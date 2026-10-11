@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контрольная работа: Глобальная сеть Интернет и информационное пространство</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Верхний бар / Шапка -->
+    <header class="bg-slate-900/80 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid font-black fa-globe"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-100 text-sm md:text-base leading-tight">Контрольная работа</h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">Информатика &bull; 9 класс</p>
+                </div>
+            </div>
+
+            <!-- Данные ученика и таймер (скрыты до старта) -->
+            <div id="header-info" class="hidden flex items-center space-x-4">
+                <div class="bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700 text-xs text-slate-300 flex items-center space-x-2">
+                    <i class="fa-solid fa-user-graduate text-indigo-400"></i>
+                    <span id="header-student-name" class="font-medium text-slate-100"></span>
+                </div>
+                <div id="timer-badge" class="bg-indigo-950/60 text-indigo-300 border border-indigo-800/50 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold flex items-center space-x-2">
+                    <i class="fa-regular fa-clock text-indigo-400 animate-pulse"></i>
+                    <span id="timer-display">15:00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="max-w-4xl w-full mx-auto p-4 md:p-6 flex-grow flex items-center justify-center">
+
+        <!-- 1. Экран регистрации (Стартовый) -->
+        <div id="welcome-screen" class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium mb-4">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Информационная безопасность и Интернет</span>
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Регистрация и ввод данных</h2>
+                <p class="text-slate-400 text-sm md:text-base mb-6 leading-relaxed">
+                    Заполните информацию о себе для начала прохождения контрольного тестирования. 
+                    После завершения вы сможете сформировать отчет для отправки преподавателю.
+                </p>
+
+                <!-- Форма регистрации -->
+                <div class="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 mb-6 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="student-surname" class="block text-xs font-medium text-slate-300 mb-1">Фамилия <span class="text-rose-400">*</span></label>
+                            <input type="text" id="student-surname" placeholder="например, Иванов" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                        </div>
+                        <div>
+                            <label for="student-firstname" class="block text-xs font-medium text-slate-300 mb-1">Имя <span class="text-rose-400">*</span></label>
+                            <input type="text" id="student-firstname" placeholder="например, Алексей" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="student-class" class="block text-xs font-medium text-slate-300 mb-1">Класс / Группа <span class="text-rose-400">*</span></label>
+                        <input type="text" id="student-class" placeholder="например, 11-А" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                    <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-800/50 flex items-center space-x-3">
+                        <i class="fa-solid fa-list-check text-indigo-400 text-lg"></i>
+                        <div>
+                            <div class="text-xs text-slate-400">Вопросов</div>
+                            <div class="text-sm font-semibold text-white">10 заданий</div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-800/50 flex items-center space-x-3">
+                        <i class="fa-solid fa-stopwatch text-indigo-400 text-lg"></i>
+                        <div>
+                            <div class="text-xs text-slate-400">Ограничение</div>
+                            <div class="text-sm font-semibold text-white">15 минут</div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-800/50 flex items-center space-x-3">
+                        <i class="fa-solid fa-file-arrow-down text-indigo-400 text-lg"></i>
+                        <div>
+                            <div class="text-xs text-slate-400">Финал</div>
+                            <div class="text-sm font-semibold text-white">Отчет .TXT</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="start-btn" disabled class="w-full py-3.5 px-6 bg-slate-800 text-slate-500 font-semibold rounded-xl cursor-not-allowed transition flex items-center justify-center space-x-2">
+                    <span>Заполните все поля для начала</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. Экран тестирования (Скрыт по умолчанию) -->
+        <div id="quiz-screen" class="hidden w-full space-y-4">
+            <!-- Прогресс-бар -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
+                <div class="flex justify-between items-center mb-2 text-xs font-medium">
+                    <span id="question-tracker" class="text-indigo-400">Вопрос 1 из 10</span>
+                    <span id="score-tracker" class="text-slate-400">Набрано баллов: 0</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-300" style="width: 10%"></div>
+                </div>
+            </div>
+
+            <!-- Карточка вопроса -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative">
+                <div class="flex items-center justify-between gap-2 mb-4">
+                    <span id="question-category" class="text-xs font-semibold uppercase tracking-wider text-slate-400 bg-slate-800 px-2.5 py-1 rounded">Сети</span>
+                    <span id="question-type-badge" class="text-xs text-indigo-300 bg-indigo-950 border border-indigo-800/60 px-2.5 py-1 rounded">Один выбор</span>
+                </div>
+
+                <h3 id="question-text" class="text-lg md:text-xl font-semibold text-white mb-6 leading-relaxed">
+                    Загрузка вопроса...
+                </h3>
+
+                <!-- Варианты ответов / Поле ввода -->
+                <div id="options-container" class="space-y-3 mb-6">
+                    <!-- Заполняется динамически через JS -->
+                </div>
+
+                <!-- Блок обратной связи (пояснение к ответу) -->
+                <div id="feedback-box" class="hidden p-4 rounded-xl border mb-6 text-sm">
+                    <div class="flex items-start space-x-3">
+                        <i id="feedback-icon" class="fa-solid mt-0.5 text-lg"></i>
+                        <div>
+                            <h4 id="feedback-title" class="font-bold mb-1"></h4>
+                            <p id="feedback-text" class="text-slate-300 text-xs md:text-sm leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Кнопки управления -->
+                <div class="flex justify-end space-x-3 pt-2 border-t border-slate-800/80">
+                    <button id="check-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl transition shadow-lg shadow-indigo-600/20 flex items-center space-x-2">
+                        <span>Проверить ответ</span>
+                        <i class="fa-solid fa-check text-xs"></i>
+                    </button>
+                    <button id="next-btn" class="hidden px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl transition flex items-center space-x-2">
+                        <span id="next-btn-text">Следующий вопрос</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Экран результатов (Скрыт по умолчанию) -->
+        <div id="results-screen" class="hidden w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl text-center relative overflow-hidden">
+            <div class="w-20 h-20 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-xl">
+                <i class="fa-solid fa-award"></i>
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-1">Тестирование завершено!</h2>
+            <p id="result-student-info" class="text-slate-400 text-sm mb-6"></p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto mb-6">
+                <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                    <div class="text-xs text-slate-400 mb-1">Результат</div>
+                    <div id="final-score" class="text-2xl font-bold text-indigo-400">0 / 10</div>
+                </div>
+                <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                    <div class="text-xs text-slate-400 mb-1">Успеваемость</div>
+                    <div id="final-percentage" class="text-2xl font-bold text-purple-400">0%</div>
+                </div>
+                <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                    <div class="text-xs text-slate-400 mb-1">Оценка</div>
+                    <div id="final-grade" class="text-2xl font-bold text-emerald-400">-</div>
+                </div>
+            </div>
+
+            <div id="grade-comment" class="text-sm text-slate-300 max-w-lg mx-auto mb-8 bg-slate-950/40 p-4 rounded-xl border border-slate-800/50">
+                Комментарий к оценке...
+            </div>
+
+            <!-- Главная кнопка отправки/скачивания -->
+            <div class="max-w-md mx-auto space-y-3">
+                <button id="download-report-btn" class="w-full py-3.5 px-6 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-file-arrow-down"></i>
+                    <span>Скачать файл с ответами (.txt)</span>
+                </button>
+                <p class="text-xs text-slate-400">
+                    Скачайте текстовый файл отчета и отправьте его учителю через социальные сети или мессенджер.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Скрипт логики -->
+    <script>
+        // База вопросов контрольной работы
+        const questions = [
+            {
+                id: 1,
+                category: "Сетевые протоколы",
+                type: "single",
+                question: "Какой сетевой протокол обеспечивает безопасную и зашифрованную передачу данных в сети Интернет при посещении веб-сайтов?",
+                options: ["HTTP", "HTTPS", "FTP", "DNS"],
+                correct: 1,
+                explanation: "HTTPS (Hypertext Transfer Protocol Secure) использует шифрование (SSL/TLS) для защиты передаваемых данных между пользователем и сайтом."
+            },
+            {
+                id: 2,
+                category: "Информационная безопасность",
+                type: "single",
+                question: "Как называется вид интернет-мошенничества, целью которого является получение доступа к конфиденциальным данным пользователей (логинам и паролям) через поддельные сайты?",
+                options: ["Фарминг", "Фишинг", "Спемминг", "Дроппинг"],
+                correct: 1,
+                explanation: "Фишинг — это атака, при которой мошенники создают копии известных сайтов и заманивают туда пользователей для кражи учётных данных."
+            },
+            {
+                id: 3,
+                category: "Цифровая гигиена",
+                type: "multiple",
+                question: "Выберите ВСЕ правила надежного составления и хранения паролей (несколько вариантов):",
+                options: [
+                    "Использование одного пароля для всех аккаунтов для удобства",
+                    "Длина пароля от 12 символов, включая цифры, спецсимволы и разные регистры",
+                    "Использование менеджеров паролей и двухфакторной аутентификации (2FA)",
+                    "Хранение паролей в текстовом файле на рабочем столе"
+                ],
+                correct: [1, 2],
+                explanation: "Надежный пароль должен быть длинным и сложным. Для разных сервисов нужны разные пароли, а хранить их лучше в зашифрованных менеджерах паролей с включенным 2FA."
+            },
+            {
+                id: 4,
+                category: "Адресация в Интернет",
+                type: "single",
+                question: "За что отвечает система доменных имен (DNS) в сети Интернет?",
+                options: [
+                    "За защиту от вирусов на локальном ПК",
+                    "За преобразование понятных человеку доменных имён в IP-адреса компьютеров",
+                    "За скорость скачивания файлов через торренты",
+                    "За шифрование паролей пользователей"
+                ],
+                correct: 1,
+                explanation: "DNS (Domain Name System) работает как «телефонная книга» Интернета, сопоставляя символьные имена сайтов (например, github.com) с их числовыми IP-адресами."
+            },
+            {
+                id: 5,
+                category: "Кибербезопасность",
+                type: "text",
+                question: "Введите название специальной программы или аппаратного комплекса («межсетевого экрана»), который контролирует и фильтрует входящий и исходящий сетевой трафик.",
+                correct: ["фаервол", "файрвол", "брандмауэр", "firewall"],
+                explanation: "Брандмауэр (или фаервол / firewall) защищает сеть от несанкционированного доступа, фильтруя трафик по заданным правилам безопасности."
+            },
+            {
+                id: 6,
+                category: "Безопасное поведение",
+                type: "single",
+                question: "Вы подключились к открытой публичной сети Wi-Fi в кафе. Какое действие является НАИБОЛЕЕ опасным с точки зрения безопасности?",
+                options: [
+                    "Чтение новостных порталов",
+                    "Просмотр расписания поездов",
+                    "Вход в мобильный банк и совершение покупок с вводом данных карты",
+                    "Прослушивание музыки онлайн"
+                ],
+                correct: 2,
+                explanation: "Открытые Wi-Fi сети могут перехватываться злоумышленниками. Передавать через них ценную личную информацию или банковские данные без VPN крайне небезопасно."
+            },
+            {
+                id: 7,
+                category: "Информационное пространство",
+                type: "multiple",
+                question: "Какие признаки могут указывать на то, что перед вами недостоверная новость (фейк) в сети? (несколько вариантов)",
+                options: [
+                    "Заголовок вызывает сильные эмоции и содержит капслок/восклицательные знаки",
+                    "Отсутствие ссылок на официальные источники и экспертов",
+                    "Новость опубликована на официальном сайте государственного ведомства",
+                    "Картинка к новости не соответствует тексту или взята из старого архива"
+                ],
+                correct: [0, 1, 3],
+                explanation: "Кликбейтные заголовки, отсутствие первоисточников и манипуляции с фото — классические маркеры недостоверной информации."
+            },
+            {
+                id: 8,
+                category: "Работа с информацией",
+                type: "single",
+                question: "Что из перечисленного является объектом авторского права в информационном пространстве Интернета?",
+                options: [
+                    "Только программный код",
+                    "Любой оригинальный текст, изображение, видео и музыка, созданные автором",
+                    "Только контент, за который официально заплатили",
+                    "Ничего, все опубликованное в сети становится общим"
+                ],
+                correct: 1,
+                explanation: "Авторское право распространяется на любые произведения науки, литературы и искусства, выраженные в объективной форме (включая цифровую)."
+            },
+            {
+                id: 9,
+                category: "Персональные данные",
+                type: "text",
+                question: "Как называется процесс подтверждения личности пользователя при входе в систему (например, ввод пароля или кода из SMS)?",
+                correct: ["аутентификация", "аутентификация пользователя"],
+                explanation: "Аутентификация — процедура проверки подлинности введенных учетных данных."
+            },
+            {
+                id: 10,
+                category: "Сетевые технологии",
+                type: "single",
+                question: "Что представляет собой облачное хранилище данных (Cloud Storage)?",
+                options: [
+                    "Память, встроенная в процессор компьютера",
+                    "Модель онлайн-хранилища, в которой данные содержатся на многочисленных распределенных в сети серверах",
+                    "Флешка, подключенная к роутеру",
+                    "Жесткий диск в системном блоке"
+                ],
+                correct: 1,
+                explanation: "Облачное хранилище позволяет хранить файлы на удаленных серверах провайдера и получать к ним доступ из любой точки мира через Интернет."
+            }
+        ];
+
+        // Состояние приложения
+        let studentData = {
+            surname: '',
+            firstname: '',
+            studentClass: ''
+        };
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = []; // История ответов
+        let timerInterval = null;
+        let timeLeft = 15 * 60; // 15 минут в секундах
+
+        // Элементы DOM
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const headerInfo = document.getElementById('header-info');
+        const headerStudentName = document.getElementById('header-student-name');
+
+        const surnameInput = document.getElementById('student-surname');
+        const firstnameInput = document.getElementById('student-firstname');
+        const classInput = document.getElementById('student-class');
+        const startBtn = document.getElementById('start-btn');
+
+        const timerDisplay = document.getElementById('timer-display');
+        const questionTracker = document.getElementById('question-tracker');
+        const scoreTracker = document.getElementById('score-tracker');
+        const progressBar = document.getElementById('progress-bar');
+
+        const questionCategory = document.getElementById('question-category');
+        const questionTypeBadge = document.getElementById('question-type-badge');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+
+        const feedbackBox = document.getElementById('feedback-box');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+
+        const checkBtn = document.getElementById('check-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const nextBtnText = document.getElementById('next-btn-text');
+
+        // Проверка заполнения формы регистрации
+        function validateRegistrationForm() {
+            const surname = surnameInput.value.trim();
+            const firstname = firstnameInput.value.trim();
+            const studentClass = classInput.value.trim();
+
+            if (surname !== '' && firstname !== '' && studentClass !== '') {
+                startBtn.disabled = false;
+                startBtn.className = "w-full py-3.5 px-6 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/20 cursor-pointer transition flex items-center justify-center space-x-2";
+                startBtn.querySelector('span').innerText = "Начать тестирование";
+            } else {
+                startBtn.disabled = true;
+                startBtn.className = "w-full py-3.5 px-6 bg-slate-800 text-slate-500 font-semibold rounded-xl cursor-not-allowed transition flex items-center justify-center space-x-2";
+                startBtn.querySelector('span').innerText = "Заполните все поля для начала";
+            }
+        }
+
+        [surnameInput, firstnameInput, classInput].forEach(input => {
+            input.addEventListener('input', validateRegistrationForm);
+        });
+
+        // Запуск теста
+        startBtn.addEventListener('click', () => {
+            studentData.surname = surnameInput.value.trim();
+            studentData.firstname = firstnameInput.value.trim();
+            studentData.studentClass = classInput.value.trim();
+
+            headerStudentName.innerText = `${studentData.surname} ${studentData.firstname} (${studentData.studentClass})`;
+            headerInfo.classList.remove('hidden');
+
+            welcomeScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            startTimer();
+            loadQuestion();
+        });
+
+        // Работа таймера
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        // Загрузка текущего вопроса
+        function loadQuestion() {
+            const q = questions[currentQuestionIndex];
+
+            // Обновление прогресса
+            questionTracker.innerText = `Вопрос ${currentQuestionIndex + 1} из ${questions.length}`;
+            scoreTracker.innerText = `Набрано баллов: ${score}`;
+            progressBar.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+
+            questionCategory.innerText = q.category;
+            questionText.innerText = q.question;
+
+            // Сброс интерфейса ответа
+            feedbackBox.classList.add('hidden');
+            checkBtn.classList.remove('hidden');
+            nextBtn.classList.add('hidden');
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtnText.innerText = "Завершить тест";
+            } else {
+                nextBtnText.innerText = "Следующий вопрос";
+            }
+
+            optionsContainer.innerHTML = '';
+
+            // Отрисовка типов вопросов
+            if (q.type === 'single') {
+                questionTypeBadge.innerText = 'Один выбор';
+                q.options.forEach((opt, idx) => {
+                    const label = document.createElement('label');
+                    label.className = "flex items-center p-3.5 bg-slate-950/60 border border-slate-800 rounded-xl cursor-pointer hover:border-slate-700 transition";
+                    label.innerHTML = `
+                        <input type="radio" name="answer" value="${idx}" class="w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 focus:ring-indigo-500">
+                        <span class="ml-3 text-sm text-slate-200">${opt}</span>
+                    `;
+                    optionsContainer.appendChild(label);
+                });
+            } else if (q.type === 'multiple') {
+                questionTypeBadge.innerText = 'Несколько выборов';
+                q.options.forEach((opt, idx) => {
+                    const label = document.createElement('label');
+                    label.className = "flex items-center p-3.5 bg-slate-950/60 border border-slate-800 rounded-xl cursor-pointer hover:border-slate-700 transition";
+                    label.innerHTML = `
+                        <input type="checkbox" name="answer" value="${idx}" class="w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded focus:ring-indigo-500">
+                        <span class="ml-3 text-sm text-slate-200">${opt}</span>
+                    `;
+                    optionsContainer.appendChild(label);
+                });
+            } else if (q.type === 'text') {
+                questionTypeBadge.innerText = 'Ввод ответа';
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = 'text-answer';
+                input.placeholder = 'Введите ваш ответ здесь...';
+                input.className = "w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition";
+                optionsContainer.appendChild(input);
+            }
+        }
+
+        // Проверка ответа
+        checkBtn.addEventListener('click', () => {
+            const q = questions[currentQuestionIndex];
+            let isCorrect = false;
+            let userAnsRaw = null;
+            let userAnsFormatted = '';
+
+            if (q.type === 'single') {
+                const selected = document.querySelector('input[name="answer"]:checked');
+                if (!selected) {
+                    alert('Пожалуйста, выберите вариант ответа!');
+                    return;
+                }
+                userAnsRaw = parseInt(selected.value);
+                isCorrect = (userAnsRaw === q.correct);
+                userAnsFormatted = q.options[userAnsRaw];
+            } else if (q.type === 'multiple') {
+                const selected = Array.from(document.querySelectorAll('input[name="answer"]:checked')).map(cb => parseInt(cb.value));
+                if (selected.length === 0) {
+                    alert('Пожалуйста, выберите хотя бы один вариант!');
+                    return;
+                }
+                userAnsRaw = selected;
+                isCorrect = (selected.length === q.correct.length && selected.every(val => q.correct.includes(val)));
+                userAnsFormatted = selected.map(i => q.options[i]).join('; ');
+            } else if (q.type === 'text') {
+                const input = document.getElementById('text-answer');
+                const val = input.value.trim().toLowerCase();
+                if (!val) {
+                    alert('Пожалуйста, введите ответ!');
+                    return;
+                }
+                userAnsRaw = val;
+                isCorrect = q.correct.some(c => c.toLowerCase() === val);
+                userAnsFormatted = input.value.trim();
+            }
+
+            // Начисление баллов и сохранение ответа
+            if (isCorrect) score++;
+
+            userAnswers.push({
+                question: q.question,
+                userAnswer: userAnsFormatted,
+                isCorrect: isCorrect,
+                correctAnswer: q.type === 'single' ? q.options[q.correct] : (q.type === 'multiple' ? q.correct.map(i => q.options[i]).join('; ') : q.correct[0])
+            });
+
+            // Блокировка ввода после проверки
+            const inputs = optionsContainer.querySelectorAll('input');
+            inputs.forEach(i => i.disabled = true);
+
+            // Показ фидбека
+            feedbackBox.classList.remove('hidden');
+            if (isCorrect) {
+                feedbackBox.className = "p-4 rounded-xl border mb-6 text-sm bg-emerald-950/40 border-emerald-800/60 text-emerald-300";
+                feedbackIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+                feedbackTitle.innerText = "Верно!";
+            } else {
+                feedbackBox.className = "p-4 rounded-xl border mb-6 text-sm bg-rose-950/40 border-rose-800/60 text-rose-300";
+                feedbackIcon.className = "fa-solid fa-circle-xmark text-rose-400 text-lg";
+                feedbackTitle.innerText = "Неверно";
+            }
+            feedbackText.innerText = q.explanation;
+
+            checkBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+            scoreTracker.innerText = `Набрано баллов: ${score}`;
+        });
+
+        // Переход к следующему вопросу
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        });
+
+        // Завершение теста
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+
+            document.getElementById('result-student-info').innerText = `Ученик: ${studentData.surname} ${studentData.firstname} | Класс: ${studentData.studentClass}`;
+
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+            document.getElementById('final-percentage').innerText = `${percentage}%`;
+
+            let grade = '2';
+            let comment = '';
+
+            if (percentage >= 85) {
+                grade = '5';
+                comment = 'Отличный результат! Вы отлично ориентируетесь в вопросах сетевой безопасности и работы в информационном пространстве.';
+            } else if (percentage >= 70) {
+                grade = '4';
+                comment = 'Хороший результат! Вы знаете базовые правила безопасности, но допускаете некритичные ошибки.';
+            } else if (percentage >= 50) {
+                grade = '3';
+                comment = 'Удовлетворительный результат. Рекомендуется повторить темы кибербезопасности и сетевых протоколов.';
+            } else {
+                grade = '2';
+                comment = 'Тест не сдан. Необходима повторная подготовка по материалам темы.';
+            }
+
+            const gradeElem = document.getElementById('final-grade');
+            gradeElem.innerText = grade;
+            if (grade === '5') gradeElem.className = "text-2xl font-bold text-emerald-400";
+            else if (grade === '4') gradeElem.className = "text-2xl font-bold text-blue-400";
+            else if (grade === '3') gradeElem.className = "text-2xl font-bold text-amber-400";
+            else gradeElem.className = "text-2xl font-bold text-rose-400";
+
+            document.getElementById('grade-comment').innerText = comment;
+        }
+
+        // Функция скачивания файлов отчета
+        document.getElementById('download-report-btn').addEventListener('click', () => {
+            const now = new Date();
+            const dateStr = now.toLocaleString('ru-RU');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            let grade = '2';
+            if (percentage >= 85) grade = '5';
+            else if (percentage >= 70) grade = '4';
+            else if (percentage >= 50) grade = '3';
+
+            let report = `==================================================\n`;
+            report += `ОТЧЕТ О ПРОХОЖДЕНИИ КОНТРОЛЬНОЙ РАБОТЫ\n`;
+            report += `Тема: Глобальная сеть Интернет и безопасность в инфопространстве\n`;
+            report += `==================================================\n\n`;
+            report += `Ученик: ${studentData.surname} ${studentData.firstname}\n`;
+            report += `Класс: ${studentData.studentClass}\n`;
+            report += `Дата прохождения: ${dateStr}\n\n`;
+            report += `--------------------------------------------------\n`;
+            report += `ИТОГИ:\n`;
+            report += `Баллы: ${score} из ${questions.length}\n`;
+            report += `Процент выполнения: ${percentage}%\n`;
+            report += `Итоговая оценка: ${grade}\n`;
+            report += `--------------------------------------------------\n\n`;
+            report += `ПОДРОБНЫЙ ПРОТОКОЛ ОТВЕТОВ:\n\n`;
+
+            userAnswers.forEach((ans, idx) => {
+                report += `Вопрос ${idx + 1}: ${ans.question}\n`;
+                report += `Ответ ученика: ${ans.userAnswer}\n`;
+                report += `Статус: ${ans.isCorrect ? 'ВЕРНО (+1 балл)' : 'НЕВЕРНО (0 баллов)'}\n`;
+                if (!ans.isCorrect) {
+                    report += `Правильный ответ: ${ans.correctAnswer}\n`;
+                }
+                report += `\n`;
+            });
+
+            report += `==================================================\n`;
+            report += `Конец отчета.\n`;
+
+            const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+            const filename = `Контрольная_${studentData.studentClass}_${studentData.surname}_${studentData.firstname}.txt`;
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        });
+    </script>
+</body>
+</html>
