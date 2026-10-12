@@ -153,14 +153,11 @@
                     <!-- Заполняется динамически через JS -->
                 </div>
 
-                <!-- Блок обратной связи (пояснение к ответу) -->
+                <!-- Блок обратной связи (только статус Верно / Неверно) -->
                 <div id="feedback-box" class="hidden p-4 rounded-xl border mb-6 text-sm">
-                    <div class="flex items-start space-x-3">
-                        <i id="feedback-icon" class="fa-solid mt-0.5 text-lg"></i>
-                        <div>
-                            <h4 id="feedback-title" class="font-bold mb-1"></h4>
-                            <p id="feedback-text" class="text-slate-300 text-xs md:text-sm leading-relaxed"></p>
-                        </div>
+                    <div class="flex items-center space-x-3">
+                        <i id="feedback-icon" class="fa-solid text-lg"></i>
+                        <h4 id="feedback-title" class="font-bold"></h4>
                     </div>
                 </div>
 
@@ -206,7 +203,7 @@
                 Комментарий к оценке...
             </div>
 
-            <!-- Главная кнопка отправки/скачивания -->
+            <!-- Кнопка скачивания отчета -->
             <div class="max-w-md mx-auto space-y-3">
                 <button id="download-report-btn" class="w-full py-3.5 px-6 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-file-arrow-down"></i>
@@ -230,8 +227,7 @@
                 type: "single",
                 question: "Какой сетевой протокол обеспечивает безопасную и зашифрованную передачу данных в сети Интернет при посещении веб-сайтов?",
                 options: ["HTTP", "HTTPS", "FTP", "DNS"],
-                correct: 1,
-                explanation: "HTTPS (Hypertext Transfer Protocol Secure) использует шифрование (SSL/TLS) для защиты передаваемых данных между пользователем и сайтом."
+                correct: 1
             },
             {
                 id: 2,
@@ -239,8 +235,7 @@
                 type: "single",
                 question: "Как называется вид интернет-мошенничества, целью которого является получение доступа к конфиденциальным данным пользователей (логинам и паролям) через поддельные сайты?",
                 options: ["Фарминг", "Фишинг", "Спемминг", "Дроппинг"],
-                correct: 1,
-                explanation: "Фишинг — это атака, при которой мошенники создают копии известных сайтов и заманивают туда пользователей для кражи учётных данных."
+                correct: 1
             },
             {
                 id: 3,
@@ -253,8 +248,7 @@
                     "Использование менеджеров паролей и двухфакторной аутентификации (2FA)",
                     "Хранение паролей в текстовом файле на рабочем столе"
                 ],
-                correct: [1, 2],
-                explanation: "Надежный пароль должен быть длинным и сложным. Для разных сервисов нужны разные пароли, а хранить их лучше в зашифрованных менеджерах паролей с включенным 2FA."
+                correct: [1, 2]
             },
             {
                 id: 4,
@@ -267,16 +261,14 @@
                     "За скорость скачивания файлов через торренты",
                     "За шифрование паролей пользователей"
                 ],
-                correct: 1,
-                explanation: "DNS (Domain Name System) работает как «телефонная книга» Интернета, сопоставляя символьные имена сайтов (например, github.com) с их числовыми IP-адресами."
+                correct: 1
             },
             {
                 id: 5,
                 category: "Кибербезопасность",
                 type: "text",
                 question: "Введите название специальной программы или аппаратного комплекса («межсетевого экрана»), который контролирует и фильтрует входящий и исходящий сетевой трафик.",
-                correct: ["фаервол", "файрвол", "брандмауэр", "firewall"],
-                explanation: "Брандмауэр (или фаервол / firewall) защищает сеть от несанкционированного доступа, фильтруя трафик по заданным правилам безопасности."
+                correct: ["фаервол", "файрвол", "брандмауэр", "firewall"]
             },
             {
                 id: 6,
@@ -289,8 +281,7 @@
                     "Вход в мобильный банк и совершение покупок с вводом данных карты",
                     "Прослушивание музыки онлайн"
                 ],
-                correct: 2,
-                explanation: "Открытые Wi-Fi сети могут перехватываться злоумышленниками. Передавать через них ценную личную информацию или банковские данные без VPN крайне небезопасно."
+                correct: 2
             },
             {
                 id: 7,
@@ -303,8 +294,7 @@
                     "Новость опубликована на официальном сайте государственного ведомства",
                     "Картинка к новости не соответствует тексту или взята из старого архива"
                 ],
-                correct: [0, 1, 3],
-                explanation: "Кликбейтные заголовки, отсутствие первоисточников и манипуляции с фото — классические маркеры недостоверной информации."
+                correct: [0, 1, 3]
             },
             {
                 id: 8,
@@ -317,16 +307,14 @@
                     "Только контент, за который официально заплатили",
                     "Ничего, все опубликованное в сети становится общим"
                 ],
-                correct: 1,
-                explanation: "Авторское право распространяется на любые произведения науки, литературы и искусства, выраженные в объективной форме (включая цифровую)."
+                correct: 1
             },
             {
                 id: 9,
                 category: "Персональные данные",
                 type: "text",
                 question: "Как называется процесс подтверждения личности пользователя при входе в систему (например, ввод пароля или кода из SMS)?",
-                correct: ["аутентификация", "аутентификация пользователя"],
-                explanation: "Аутентификация — процедура проверки подлинности введенных учетных данных."
+                correct: ["аутентификация", "аутентификация пользователя"]
             },
             {
                 id: 10,
@@ -339,8 +327,7 @@
                     "Флешка, подключенная к роутеру",
                     "Жесткий диск в системном блоке"
                 ],
-                correct: 1,
-                explanation: "Облачное хранилище позволяет хранить файлы на удаленных серверах провайдера и получать к ним доступ из любой точки мира через Интернет."
+                correct: 1
             }
         ];
 
@@ -382,7 +369,6 @@
         const feedbackBox = document.getElementById('feedback-box');
         const feedbackIcon = document.getElementById('feedback-icon');
         const feedbackTitle = document.getElementById('feedback-title');
-        const feedbackText = document.getElementById('feedback-text');
 
         const checkBtn = document.getElementById('check-btn');
         const nextBtn = document.getElementById('next-btn');
@@ -503,7 +489,6 @@
         checkBtn.addEventListener('click', () => {
             const q = questions[currentQuestionIndex];
             let isCorrect = false;
-            let userAnsRaw = null;
             let userAnsFormatted = '';
 
             if (q.type === 'single') {
@@ -512,7 +497,7 @@
                     alert('Пожалуйста, выберите вариант ответа!');
                     return;
                 }
-                userAnsRaw = parseInt(selected.value);
+                const userAnsRaw = parseInt(selected.value);
                 isCorrect = (userAnsRaw === q.correct);
                 userAnsFormatted = q.options[userAnsRaw];
             } else if (q.type === 'multiple') {
@@ -521,7 +506,6 @@
                     alert('Пожалуйста, выберите хотя бы один вариант!');
                     return;
                 }
-                userAnsRaw = selected;
                 isCorrect = (selected.length === q.correct.length && selected.every(val => q.correct.includes(val)));
                 userAnsFormatted = selected.map(i => q.options[i]).join('; ');
             } else if (q.type === 'text') {
@@ -531,26 +515,24 @@
                     alert('Пожалуйста, введите ответ!');
                     return;
                 }
-                userAnsRaw = val;
                 isCorrect = q.correct.some(c => c.toLowerCase() === val);
                 userAnsFormatted = input.value.trim();
             }
 
-            // Начисление баллов и сохранение ответа
+            // Начисление баллов и сохранение ответа (БЕЗ правильного ответа)
             if (isCorrect) score++;
 
             userAnswers.push({
                 question: q.question,
                 userAnswer: userAnsFormatted,
-                isCorrect: isCorrect,
-                correctAnswer: q.type === 'single' ? q.options[q.correct] : (q.type === 'multiple' ? q.correct.map(i => q.options[i]).join('; ') : q.correct[0])
+                isCorrect: isCorrect
             });
 
             // Блокировка ввода после проверки
             const inputs = optionsContainer.querySelectorAll('input');
             inputs.forEach(i => i.disabled = true);
 
-            // Показ фидбека
+            // Показ фидбека (только Верно / Неверно)
             feedbackBox.classList.remove('hidden');
             if (isCorrect) {
                 feedbackBox.className = "p-4 rounded-xl border mb-6 text-sm bg-emerald-950/40 border-emerald-800/60 text-emerald-300";
@@ -561,7 +543,6 @@
                 feedbackIcon.className = "fa-solid fa-circle-xmark text-rose-400 text-lg";
                 feedbackTitle.innerText = "Неверно";
             }
-            feedbackText.innerText = q.explanation;
 
             checkBtn.classList.add('hidden');
             nextBtn.classList.remove('hidden');
@@ -617,7 +598,7 @@
             document.getElementById('grade-comment').innerText = comment;
         }
 
-        // Функция скачивания файлов отчета
+        // Функция скачивания файла отчета (без правильных ответов)
         document.getElementById('download-report-btn').addEventListener('click', () => {
             const now = new Date();
             const dateStr = now.toLocaleString('ru-RU');
@@ -647,9 +628,6 @@
                 report += `Вопрос ${idx + 1}: ${ans.question}\n`;
                 report += `Ответ ученика: ${ans.userAnswer}\n`;
                 report += `Статус: ${ans.isCorrect ? 'ВЕРНО (+1 балл)' : 'НЕВЕРНО (0 баллов)'}\n`;
-                if (!ans.isCorrect) {
-                    report += `Правильный ответ: ${ans.correctAnswer}\n`;
-                }
                 report += `\n`;
             });
 
